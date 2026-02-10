@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Teddy Day 🧸</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    height:100vh;
+    background: linear-gradient(135deg, #ffd6e0, #ff9aa2);
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#333;
+}
+
+.container{
+    z-index:2;
+    padding:20px;
+    max-width:360px;
+    animation: fadeIn 2s ease;
+}
+
+.teddy{
+    width:220px;
+    animation: float 3s ease-in-out infinite;
+}
+
+h1{
+    font-size:2.2rem;
+    margin:10px 0;
+}
+
+.name{
+    color:#ff4d6d;
+    font-weight:600;
+}
+
+#text{
+    font-size:1.05rem;
+    line-height:1.6;
+    margin-top:10px;
+    min-height:140px;
+}
+
+/* Animations */
+@keyframes float{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-15px); }
+}
+
+@keyframes fadeIn{
+    from{ opacity:0; transform:scale(0.9); }
+    to{ opacity:1; transform:scale(1); }
+}
+
+/* Hearts */
+.heart{
+    position:absolute;
+    color:#ff4d6d;
+    animation: fall 6s linear infinite;
+}
+
+@keyframes fall{
+    0%{ transform:translateY(-10vh); opacity:1; }
+    100%{ transform:translateY(110vh); opacity:0; }
+}
+
+button{
+    margin-top:18px;
+    padding:10px 24px;
+    border:none;
+    border-radius:25px;
+    background:#ff4d6d;
+    color:white;
+    font-size:1rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <img id="teddy" src="teddy1.gif" class="teddy" alt="teddy">
+
+    <h1>Happy Teddy Day 🧸</h1>
+    <p class="name">For PANDULUU 💖</p>
+
+    <div id="text"></div>
+
+    <button onclick="startMagic()">Tap Teddy ✨</button>
+</div>
+
+<audio id="bgm" loop>
+    <source src="teddy_song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const message =
+"Hey PANDULUU… 🧸\n\n" +
+"This teddy is talking because my heart feels a little heavy.\n" +
+"I know I made mistakes, and I’m truly sorry for the moments I hurt you.\n\n" +
+"Please believe this… my love for you is cute, playful,\n" +
+"and deeply real. Like this teddy, I just want to stay close,\n" +
+"make you smile, and hold your heart gently 🤍\n\n" +
+"Will you forgive your silly teddy? 🧸💗";
+
+let i = 0;
+let typed = false;
+
+function typeText(){
+    if(i < message.length){
+        document.getElementById("text").innerHTML +=
+            message.charAt(i) === "\n" ? "<br>" : message.charAt(i);
+        i++;
+        setTimeout(typeText, 40);
+    }
+}
+
+function startMagic(){
+    if(typed) return;
+    typed = true;
+
+    document.getElementById("bgm").play();
+    typeText();
+    createHearts();
+
+    // switch teddy after 6 seconds
+    setTimeout(() => {
+        document.getElementById("teddy").src = "teddy2.gif";
+    }, 6000);
+}
+
+function createHearts(){
+    setInterval(()=>{
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💗";
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.fontSize = (14 + Math.random()*20) + "px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),6000);
+    },300);
+}
+</script>
+
+</body>
+</html>
